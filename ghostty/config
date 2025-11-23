@@ -25,3 +25,9 @@ keybind = cmd+d>e=equalize_splits
 # scroll
 keybind = cmd+shift+up=scroll_page_lines:-5
 keybind = cmd+shift+down=scroll_page_lines:5
+
+# resize
+keybind = ctrl+option+left=resize_split:left,30
+keybind = ctrl+option+right=resize_split:right,30
+keybind = ctrl+option+up=resize_split:up,30
+keybind = ctrl+option+down=resize_split:down,30
