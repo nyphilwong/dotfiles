@@ -1,0 +1,27 @@
+font-family = JetBrains Mono
+theme = Github Dark Dimmed
+cursor-style = block
+title = " "
+window-padding-balance = true
+window-padding-x = 5
+window-padding-y = 0
+macos-titlebar-style = transparent
+
+# keybinds
+keybind = cmd+d>r=reload_config
+keybind = cmd+d>x=close_surface
+
+#split
+keybind = cmd+d>\=new_split:right
+keybind = cmd+d>-=new_split:down
+
+keybind = cmd+d>j=goto_split:bottom
+keybind = cmd+d>k=goto_split:top
+keybind = cmd+d>h=goto_split:left
+keybind = cmd+d>l=goto_split:right
+
+keybind = cmd+d>e=equalize_splits
+
+# scroll
+keybind = cmd+shift+up=scroll_page_lines:-5
+keybind = cmd+shift+down=scroll_page_lines:5
