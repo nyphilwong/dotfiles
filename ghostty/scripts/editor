@@ -3,15 +3,44 @@ set -euo pipefail
 
 # Usage: ghostty-3pane-inner [start-dir]
 START_DIR="${1:-$HOME}"
+EDITOR_CLI="${2:-gemini}"
 cd "$START_DIR"
 
 # Optional per-pane commands (export these before launching if you want)
-LEFT_CMD=${LEFT_CMD:-"gemini"}
+LEFT_CMD="$EDITOR_CLI"
 RIGHT_TOP_CMD=${RIGHT_TOP_CMD:-""}
 RIGHT_BOTTOM_CMD=${RIGHT_BOTTOM_CMD:-""}
 
 # ---- Build layout in THIS window using your leader keys ----
-/usr/bin/osascript <<'APPLES'
+/usr/bin/osascript - <<"APPLES" "$LEFT_CMD"
+on run argv
+  set editorCmd to item 1 of argv
+  tell application "System Events"
+    tell application process "Ghostty"
+      set frontmost to true
+
+      -- splits per your config
+      my tapLeader("\\")   -- cmd+d>\  -> new_split:right
+      my tapLeader("h")
+      my tapLeader("-")    -- cmd+d>-  -> new_split:down
+
+      -- equalize first (optional, keeps results consistent)
+      my tapLeader("e")    -- cmd+d>e  -> equalize_splits
+
+      -- make RIGHT ≈ 35%  (focus RIGHT and grow it leftwards)
+      my pressN(124, {control down, option down}, 14) -- ctrl+opt+Left ×14
+
+      -- make RIGHT-TOP ≈ 70%  (focus top-right and grow downward)
+      my pressN(125, {control down, option down}, 6) -- ctrl+opt+Down ×6
+
+    -- move to LEFT and run gemini
+      my tapLeader("l")
+      my typeAndEnter(editorCmd)
+
+    end tell
+  end tell
+end run
+
 on tapLeader(letter)
   tell application "System Events"
     keystroke "d" using {command down} -- your leader: cmd+d>
@@ -41,32 +70,7 @@ on typeAndEnter(cmdText)
   end tell
 end typeAndEnter
 
-tell application "System Events"
-  tell application process "Ghostty"
-    set frontmost to true
 
-    -- splits per your config
-    my tapLeader("\\")   -- cmd+d>\  -> new_split:right
-    my tapLeader("l")    -- cmd+d>l  -> goto_split:right
-    my tapLeader("-")    -- cmd+d>-  -> new_split:down
-
-    -- equalize first (optional, keeps results consistent)
-    my tapLeader("e")    -- cmd+d>e  -> equalize_splits
-
-    -- make LEFT ≈ 35%  (focus RIGHT and grow it leftwards)
-    my tapLeader("l")    -- focus right column
-    my pressN(123, {control down, option down}, 14) -- ctrl+opt+Left ×14
-
-    -- make RIGHT-TOP ≈ 70%  (focus top-right and grow downward)
-    my tapLeader("k")    -- focus right-top
-    my pressN(125, {control down, option down}, 6) -- ctrl+opt+Down ×6
-
-	-- move to LEFT and run gemini
-	my tapLeader("h")
-	my typeAndEnter("gemini")
-
-  end tell
-end tell
 APPLES
 
 # ---- (Optional) run commands in panes by typing them + Enter ----
