@@ -3,7 +3,7 @@ set -euo pipefail
 
 # Usage: ghostty-3pane-inner [start-dir]
 START_DIR="${1:-$HOME}"
-EDITOR_CLI="${2:-gemini}"
+EDITOR_CLI="${2:-claude}"
 cd "$START_DIR"
 
 # Optional per-pane commands (export these before launching if you want)
