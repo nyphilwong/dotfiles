@@ -31,3 +31,7 @@ keybind = ctrl+option+left=resize_split:left,30
 keybind = ctrl+option+right=resize_split:right,30
 keybind = ctrl+option+up=resize_split:up,30
 keybind = ctrl+option+down=resize_split:down,30
+
+# fullscreen
+window-width = 9999
+window-height = 9999
