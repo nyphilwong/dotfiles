@@ -28,12 +28,12 @@ on run argv
       my tapLeader("e")    -- cmd+d>e  -> equalize_splits
 
       -- make RIGHT ≈ 35%  (focus RIGHT and grow it leftwards)
-      my pressN(124, {control down, option down}, 14) -- ctrl+opt+Left ×14
+      my pressN(124, {control down, option down}, 10) -- ctrl+opt+Left ×10
 
       -- make RIGHT-TOP ≈ 70%  (focus top-right and grow downward)
       my pressN(125, {control down, option down}, 6) -- ctrl+opt+Down ×6
 
-    -- move to LEFT and run gemini
+    -- move to LEFT and run claude
       my tapLeader("l")
       my typeAndEnter(editorCmd)
 
