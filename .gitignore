@@ -3,3 +3,6 @@ configstore
 
 # MacOS
 .DS_Store
+
+# Git
+git/
