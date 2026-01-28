@@ -6,3 +6,6 @@ configstore
 
 # Git
 git/
+
+# Global Ad-Hoc Virtual Environments
+venvs/
