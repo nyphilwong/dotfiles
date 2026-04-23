@@ -13,3 +13,7 @@ export SSH_AUTH_SOCK=$HOME/.bitwarden-ssh-agent.sock
 # Starship
 export STARSHIP_CONFIG="$HOME/.config/starship/starship.toml"
 eval "$(starship init zsh)"
+
+# Java 17
+export JAVA_HOME=$(/usr/libexec/java_home -v17)
+export PATH=$JAVA_HOME/bin:$PATH
