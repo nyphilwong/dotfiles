@@ -4,9 +4,14 @@ return {
   lazy = false,
   build = ":TSUpdate",
   config = function ()
-    local config = require("nvim-treesitter.configs")
-    config.setup({
-      ensure_installed = {"lua", "python", "javascript"},
+    require("nvim-treesitter").setup({
+      ensure_installed = {
+        "lua", "python", "javascript",
+        "sql",                          -- SQL files
+        "bash",                         -- shell scripts
+        "json", "yaml", "toml",         -- config files
+        "markdown", "markdown_inline",  -- for keymaps.md and docs
+      },
       highlight = { enable = true },
       indent = { enable = true },
     })

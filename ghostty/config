@@ -6,12 +6,13 @@ window-padding-balance = true
 window-padding-x = 5
 window-padding-y = 0
 macos-titlebar-style = transparent
+macos-icon = paper
 
-# keybinds
+# keybindings
 keybind = cmd+d>r=reload_config
 keybind = cmd+d>x=close_surface
 
-#split
+# split
 keybind = cmd+d>\=new_split:right
 keybind = cmd+d>-=new_split:down
 

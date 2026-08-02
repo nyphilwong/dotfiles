@@ -19,7 +19,7 @@ truncation_symbol = '…/'
 truncate_to_repo = false
 
 [directory.substitutions]
-'Documents' = '󰈙 '
+'Documents' = '󰈙'
 'Downloads' = ' '
 'Music' = ' '
 'Pictures' = ' '

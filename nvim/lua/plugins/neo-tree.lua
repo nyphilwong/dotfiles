@@ -17,6 +17,8 @@ return {
         },
       }
     })
-    vim.keymap.set('n', '<C-n>', ':Neotree filesystem reveal left<CR>', {})
+    -- <leader>e is the primary toggle (set in core/keymaps.lua)
+    -- Keep <C-n> as a reveal shortcut (focuses the current file in the tree)
+    vim.keymap.set('n', '<C-n>', ':Neotree filesystem reveal left<CR>', { desc = "Reveal file in explorer" })
   end
 }
