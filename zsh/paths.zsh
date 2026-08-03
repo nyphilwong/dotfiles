@@ -5,6 +5,11 @@ if [ -d /opt/homebrew/bin ]; then
   export PATH="/opt/homebrew/opt/python@3.12/libexec/bin:$PATH"
 fi
 
+# NeoVim (official tarball, Linux only — macOS gets it via Homebrew above)
+if [ -d /opt/nvim/bin ]; then
+  export PATH="/opt/nvim/bin:$PATH"
+fi
+
 # Autocomplete
 autoload -Uz compinit
 compinit
@@ -18,8 +23,7 @@ fi
 export STARSHIP_CONFIG="$HOME/.config/starship/starship.toml"
 command -v starship >/dev/null && eval "$(starship init zsh)"
 
-# NeoVim
+# NVM
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
