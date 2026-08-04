@@ -23,6 +23,11 @@ fi
 export STARSHIP_CONFIG="$HOME/.config/starship/starship.toml"
 command -v starship >/dev/null && eval "$(starship init zsh)"
 
+# CUDA Toolkit (WSL local-llm inference server only)
+if [ -d /usr/local/cuda/bin ]; then
+  export PATH="/usr/local/cuda/bin:$PATH"
+fi
+
 # NVM
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
