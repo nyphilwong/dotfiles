@@ -9,3 +9,7 @@ git/
 
 # Global Ad-Hoc Virtual Environments
 venvs/
+
+# tmux: work/machine-specific overrides, never shared across machines
+tmux/conf/90-work.conf
+tmux/conf/99-local.conf
