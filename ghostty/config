@@ -12,6 +12,10 @@ macos-icon = paper
 keybind = cmd+d>r=reload_config
 keybind = cmd+d>x=close_surface
 
+# Keep macOS line editing shortcuts from colliding with tmux's Ctrl-a prefix.
+keybind = cmd+arrow_left=csi:H
+keybind = cmd+arrow_right=csi:F
+
 # split
 keybind = cmd+d>\=new_split:right
 keybind = cmd+d>-=new_split:down
