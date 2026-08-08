@@ -1,0 +1,4 @@
+# Require @nyphilwong review on all pull requests.
+# Combine with the "Require review from Code Owners" rule
+# on the master branch ruleset to enforce this automatically.
+* @nyphilwong
