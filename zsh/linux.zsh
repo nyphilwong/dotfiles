@@ -1,21 +1,37 @@
-# SSH agent persistence (Linux/WSL only — macOS handles this natively via
-# ssh-agent + the system Keychain, see UseKeychain in ~/.ssh/config)
-if [[ "$(uname -s)" == "Linux" ]]; then
-  SSH_ENV="$HOME/.ssh/agent-environment"
+# Linux/WSL-only shell config. init.zsh only sources this file when
+# `uname -s` is Linux, so nothing in here needs its own OS check.
 
-  start_ssh_agent() {
-    ssh-agent -s > "$SSH_ENV"
-    chmod 600 "$SSH_ENV"
-    source "$SSH_ENV" > /dev/null
-    ssh-add ~/.ssh/id_ed25519
-  }
+# Neovim from the official tarball (macOS gets it from Homebrew instead)
+if [ -d /opt/nvim/bin ]; then
+  export PATH="/opt/nvim/bin:$PATH"
+fi
 
-  if [ -f "$SSH_ENV" ]; then
-    source "$SSH_ENV" > /dev/null
-    if ! kill -0 "$SSH_AGENT_PID" 2>/dev/null; then
-      start_ssh_agent
-    fi
-  else
+# CUDA toolkit (inference host only)
+if [ -d /usr/local/cuda/bin ]; then
+  export PATH="/usr/local/cuda/bin:$PATH"
+fi
+
+# Snap-installed binaries (e.g. glow). /snap/bin isn't on PATH by default.
+if [ -d /snap/bin ]; then
+  export PATH="/snap/bin:$PATH"
+fi
+
+# SSH agent persistence (macOS handles this natively via ssh-agent + the
+# system Keychain, see UseKeychain in ~/.ssh/config)
+SSH_ENV="$HOME/.ssh/agent-environment"
+
+start_ssh_agent() {
+  ssh-agent -s > "$SSH_ENV"
+  chmod 600 "$SSH_ENV"
+  source "$SSH_ENV" > /dev/null
+  ssh-add ~/.ssh/id_ed25519
+}
+
+if [ -f "$SSH_ENV" ]; then
+  source "$SSH_ENV" > /dev/null
+  if ! kill -0 "$SSH_AGENT_PID" 2>/dev/null; then
     start_ssh_agent
   fi
+else
+  start_ssh_agent
 fi

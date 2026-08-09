@@ -15,10 +15,15 @@
 # declare what it is — a machine's role is simply which of these paths exist.
 
 # --- 1. shared personal base --------------------------------------------------
-for _f in aliases paths linux; do
+for _f in aliases paths; do
   [ -f "$HOME/.config/zsh/$_f.zsh" ] && source "$HOME/.config/zsh/$_f.zsh"
 done
 unset _f
+
+# linux.zsh is Linux-only content (WSL/native). The OS check happens once
+# here at the source point, so linux.zsh itself — and everything in it —
+# doesn't need to re-guard on `uname`.
+[[ "$(uname -s)" == "Linux" ]] && [ -f "$HOME/.config/zsh/linux.zsh" ] && source "$HOME/.config/zsh/linux.zsh"
 
 # --- 2. private work overlay --------------------------------------------------
 # Presence of the repository is the opt-in; cloning it requires access to a

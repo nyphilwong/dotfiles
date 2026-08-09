@@ -14,11 +14,6 @@ if [ -d /opt/homebrew/bin ]; then
   export PATH="/opt/homebrew/opt/python@3.12/libexec/bin:$PATH"
 fi
 
-# Neovim from the official tarball (Linux only — macOS gets it from Homebrew)
-if [[ "$(uname -s)" == "Linux" && -d /opt/nvim/bin ]]; then
-  export PATH="/opt/nvim/bin:$PATH"
-fi
-
 # User-level binaries (uv tools, pipx, vendor installers)
 if [ -d "$HOME/.local/bin" ]; then
   export PATH="$HOME/.local/bin:$PATH"
@@ -34,11 +29,6 @@ fi
 # Starship
 export STARSHIP_CONFIG="$HOME/.config/starship/starship.toml"
 command -v starship >/dev/null && eval "$(starship init zsh)"
-
-# CUDA toolkit (Linux/WSL inference host only)
-if [[ "$(uname -s)" == "Linux" && -d /usr/local/cuda/bin ]]; then
-  export PATH="/usr/local/cuda/bin:$PATH"
-fi
 
 # NVM
 export NVM_DIR="$HOME/.nvm"
