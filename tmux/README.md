@@ -64,6 +64,5 @@ The portable files are `tmux.conf`, `conf/10-options.conf`,
 only on Darwin. A future Linux-specific file can be added without changing
 the portable core.
 
-Keep work-only settings in `conf/90-work.conf` and machine-only settings in
-`conf/99-local.conf`. Do not copy either file unless its settings are
-appropriate for the other machine.
+There is no work- or machine-specific tmux overlay — everything here is meant
+to be identical on every machine.
