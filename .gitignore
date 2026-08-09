@@ -1,15 +1,29 @@
-# Google StorageNotification
-configstore
+# This repository IS ~/.config, so applications write their own state into the
+# working tree. Those files must stay where the application expects them, which
+# means the only defense against publishing them is this file.
+#
+# THIS REPOSITORY IS PUBLIC. Never `git add -A` here.
 
-# MacOS
+# macOS
 .DS_Store
 
-# Git
-git/
+# Git's own user-level config directory lives inside this repo because the repo
+# is ~/.config. Track the portable global ignore list (git/ignore); never track
+# identity or machine settings. Note that `git config --global` writes here on a
+# machine with no ~/.gitconfig.
+git/config
 
-# Global Ad-Hoc Virtual Environments
+# Generated state, credentials, and token databases. Applications resolve these
+# paths natively — leave the files in place and keep git blind to them.
+cagent/
+cmux/
+gcloud/
+gh/
+mlflow/
 venvs/
+configstore
+*.log
 
-# tmux: work/machine-specific overrides, never shared across machines
-tmux/conf/90-work.conf
-tmux/conf/99-local.conf
+# Defensive: tool-generated token directory. It belongs outside ~/.config
+# entirely (see ~/.local/state), but ignore the path in case it reappears.
+tag-iab-updates/
