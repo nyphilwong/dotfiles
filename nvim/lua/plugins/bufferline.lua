@@ -43,5 +43,8 @@ return {
     map("n", "<leader>b3", "<cmd>BufferLineGoToBuffer 3<cr>", { desc = "Buffer: Go to 3" })
     map("n", "<leader>b4", "<cmd>BufferLineGoToBuffer 4<cr>", { desc = "Buffer: Go to 4" })
     map("n", "<leader>b5", "<cmd>BufferLineGoToBuffer 5<cr>", { desc = "Buffer: Go to 5" })
+    -- Overlay a letter on each tab and jump to it by typing that letter
+    -- (handy once you have more than 5 tabs open)
+    map("n", "<leader>bp", "<cmd>BufferLinePick<cr>", { desc = "Buffer: Pick" })
   end,
 }

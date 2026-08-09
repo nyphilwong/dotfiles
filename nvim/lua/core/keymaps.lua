@@ -20,7 +20,45 @@ map("n", "<A-Right>", "<cmd>vertical resize +2<cr>", { desc = "Increase window w
 -- Shift+L / Shift+H cycle through open buffers (like browser tab switching)
 map("n", "<S-l>", "<cmd>bnext<cr>",     { desc = "Next buffer" })
 map("n", "<S-h>", "<cmd>bprevious<cr>", { desc = "Previous buffer" })
-map("n", "<leader>bd", "<cmd>bdelete<cr>", { desc = "Delete buffer" })
+-- Close the current buffer without leaving an empty window behind.
+-- Plain :bdelete doesn't switch the window to another buffer first, so if
+-- there's no spare [No Name] buffer to fall back to, the window goes empty
+-- and neo-tree's sidebar visually takes over the freed space.
+map("n", "<leader>bd", function()
+  local cur = vim.api.nvim_get_current_buf()
+
+  local function is_candidate(buf)
+    return buf ~= cur
+      and vim.api.nvim_buf_is_loaded(buf)
+      and vim.bo[buf].buflisted
+      and vim.bo[buf].filetype ~= "neo-tree"
+  end
+
+  -- Switch to the nearest neighboring buffer (left, then right) rather than
+  -- just the first listed buffer found, so closing a tab lands you on the
+  -- adjacent tab instead of jumping to the far left every time.
+  local target
+  for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+    if buf < cur and is_candidate(buf) and (not target or buf > target) then
+      target = buf
+    end
+  end
+  if not target then
+    for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+      if buf > cur and is_candidate(buf) and (not target or buf < target) then
+        target = buf
+      end
+    end
+  end
+
+  if target then
+    vim.api.nvim_set_current_buf(target)
+  end
+
+  if vim.api.nvim_buf_is_valid(cur) then
+    pcall(vim.cmd, "bdelete " .. cur)
+  end
+end, { desc = "Delete buffer and switch" })
 
 -- ─── File explorer ────────────────────────────────────────────────────────────
 map("n", "<leader>e", "<cmd>Neotree toggle<cr>", { desc = "Toggle file explorer" })
