@@ -30,7 +30,14 @@ start_ssh_agent() {
 if [ -f "$SSH_ENV" ]; then
   source "$SSH_ENV" > /dev/null
   if ! kill -0 "$SSH_AGENT_PID" 2>/dev/null; then
+    # Agent process is gone (reboot, killed, etc.) — start a fresh one.
     start_ssh_agent
+  elif ! ssh-add -l > /dev/null 2>&1; then
+    # Agent is alive but holds no identities — e.g. an earlier ssh-add in
+    # this session failed or was cancelled. kill -0 alone can't see this,
+    # so without this check the empty agent would persist all day and every
+    # git/ssh call would fall back to prompting for the passphrase directly.
+    ssh-add ~/.ssh/id_ed25519
   fi
 else
   start_ssh_agent
