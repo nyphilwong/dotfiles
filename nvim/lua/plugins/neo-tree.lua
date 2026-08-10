@@ -15,6 +15,7 @@ return {
           hide_dotfiels = false,
           visible = true
         },
+        use_libuv_file_watcher = true,
       }
     })
     -- <leader>e is the primary toggle (set in core/keymaps.lua)
