@@ -33,3 +33,13 @@ vim.o.clipboard = "unnamedplus"
 
 -- Faster sign/diagnostic updates (gitsigns, LSP)
 vim.o.updatetime = 250
+
+-- Auto-reload files changed on disk by another editor (only when the
+-- buffer itself has no unsaved changes -- a real conflict still prompts).
+vim.o.autoread = true
+
+vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter", "CursorHold", "CursorHoldI" }, {
+  desc = "Check for external file changes and reload if unmodified",
+  pattern = "*",
+  command = "if mode() != 'c' | checktime | endif",
+})
