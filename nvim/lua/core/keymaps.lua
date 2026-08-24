@@ -18,8 +18,8 @@ map("n", "<A-Right>", "<cmd>vertical resize +2<cr>", { desc = "Increase window w
 
 -- ─── Buffers ──────────────────────────────────────────────────────────────────
 -- Shift+L / Shift+H cycle through open buffers (like browser tab switching)
-map("n", "<S-l>", "<cmd>bnext<cr>",     { desc = "Next buffer" })
-map("n", "<S-h>", "<cmd>bprevious<cr>", { desc = "Previous buffer" })
+map("n", "<leader>}", "<cmd>bnext<cr>",     { desc = "Next buffer" })
+map("n", "<leader>{", "<cmd>bprevious<cr>", { desc = "Previous buffer" })
 -- Close the current buffer without leaving an empty window behind.
 -- Plain :bdelete doesn't switch the window to another buffer first, so if
 -- there's no spare [No Name] buffer to fall back to, the window goes empty
