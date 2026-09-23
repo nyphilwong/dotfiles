@@ -4,7 +4,7 @@ alias ll="ls -lah"
 alias rm="rm -vi"
 
 # Python Dev
-alias python="python3.11"
+alias python="python3.12"
 alias pip="pip3"
 alias venv="python -m venv .venv"
 alias activate="source .venv/bin/activate"
